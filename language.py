@@ -17,7 +17,20 @@ Parameters: str
 Returns: 2D list of strs
 '''
 def loadBook(filename):
-    return
+    result=[]
+    open_ = open(filename).read().splitlines()    
+    for word in open_:
+       if len(word)!=0:
+        result.append(word.split(' '))
+    return result
+    # open_ = open(filename, "r")
+    # row =[]
+    # for line in open_.readlines():
+    #     temp = []
+    #     for i in line.split():
+    #         temp.append(i.strip())
+    #     row.append(temp)
+    # return row
 
 
 '''
@@ -285,13 +298,14 @@ def scatterPlot(xs, ys, labels, title):
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
-    print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
-    test.week1Tests()
-    print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
-    test.runWeek1()
+    test.testLoadBook()
+    # print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
+#     test.week1Tests()
+#     print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
+#     test.runWeek1()
 
     ## Uncomment these for Week 2 ##
-"""
+    """
     print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
     test.week2Tests()
     print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
@@ -303,3 +317,4 @@ if __name__ == "__main__":
     print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
     test.runWeek3()
 """
+    
