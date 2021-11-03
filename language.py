@@ -54,7 +54,12 @@ Parameters: 2D list of strs
 Returns: list of strs
 '''
 def buildVocabulary(corpus):
-    return
+    unit = []
+    for line in corpus:
+        for word in line:
+            if word not in unit:
+                unit.append(word)
+    return unit
 
 
 '''
@@ -302,7 +307,7 @@ def scatterPlot(xs, ys, labels, title):
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
-    test.testGetCorpusLength()
+    test.testBuildVocabulary()
     # print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
 #     test.week1Tests()
 #     print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
