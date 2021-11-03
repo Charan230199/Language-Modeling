@@ -17,7 +17,20 @@ Parameters: str
 Returns: 2D list of strs
 '''
 def loadBook(filename):
-    return
+    result=[]
+    open_ = open(filename).read().splitlines()    
+    for word in open_:
+       if len(word)!=0:
+        result.append(word.split(' '))
+    return result
+    # open_ = open(filename, "r")
+    # row =[]
+    # for line in open_.readlines():
+    #     temp = []
+    #     for i in line.split():
+    #         temp.append(i.strip())
+    #     row.append(temp)
+    # return row
 
 
 '''
@@ -27,7 +40,11 @@ Parameters: 2D list of strs
 Returns: int
 '''
 def getCorpusLength(corpus):
-    return
+    len = 0
+    for line in corpus:
+        for word in line:
+            len = len +1
+    return len
 
 
 '''
@@ -37,7 +54,12 @@ Parameters: 2D list of strs
 Returns: list of strs
 '''
 def buildVocabulary(corpus):
-    return
+    unit = []
+    for line in corpus:
+        for word in line:
+            if word not in unit:
+                unit.append(word)
+    return unit
 
 
 '''
@@ -47,7 +69,14 @@ Parameters: 2D list of strs
 Returns: dict mapping strs to ints
 '''
 def countUnigrams(corpus):
-    return
+    Dict ={}
+    for line in corpus:
+        for word in line:
+            if word not in Dict:
+                Dict[word] = 1
+            else:
+                Dict[word] += 1
+    return Dict
 
 
 '''
@@ -57,7 +86,11 @@ Parameters: 2D list of strs
 Returns: list of strs
 '''
 def getStartWords(corpus):
-    return
+    start = []
+    for word in corpus:
+        if word[0] not in start:
+            start.append(word[0])
+    return start
 
 
 '''
@@ -67,7 +100,13 @@ Parameters: 2D list of strs
 Returns: dict mapping strs to ints
 '''
 def countStartWords(corpus):
-    return
+    start = {}
+    for word in corpus:
+        if word[0] not in start:
+            start[word[0]] = 1
+        else:
+            start[word[0]] += 1
+    return start
 
 
 '''
@@ -77,7 +116,16 @@ Parameters: 2D list of strs
 Returns: dict mapping strs to (dicts mapping strs to ints)
 '''
 def countBigrams(corpus):
-    return
+    Dict ={}
+    for i in corpus:
+        for j in range(len(i)-1):
+            if i[j] not in Dict:
+                Dict[i[j]] = {}
+            if i[j+1] not in Dict[i[j]]:
+                Dict[i[j]][i[j+1]] = 1
+            else:
+                Dict[i[j]][i[j+1]] += 1
+    return Dict
 
 
 ### WEEK 2 ###
@@ -285,13 +333,14 @@ def scatterPlot(xs, ys, labels, title):
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
-    print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
-    test.week1Tests()
-    print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
-    test.runWeek1()
+    test.testCountBigrams()
+    # print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
+#     test.week1Tests()
+#     print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
+#     test.runWeek1()
 
     ## Uncomment these for Week 2 ##
-"""
+    """
     print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
     test.week2Tests()
     print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
@@ -303,3 +352,4 @@ if __name__ == "__main__":
     print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
     test.runWeek3()
 """
+    
