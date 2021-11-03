@@ -69,7 +69,14 @@ Parameters: 2D list of strs
 Returns: dict mapping strs to ints
 '''
 def countUnigrams(corpus):
-    return
+    Dict ={}
+    for line in corpus:
+        for word in line:
+            if word not in Dict:
+                Dict[word] = 1
+            else:
+                Dict[word] += 1
+    return Dict
 
 
 '''
@@ -79,6 +86,7 @@ Parameters: 2D list of strs
 Returns: list of strs
 '''
 def getStartWords(corpus):
+    
     return
 
 
@@ -307,7 +315,7 @@ def scatterPlot(xs, ys, labels, title):
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
-    test.testBuildVocabulary()
+    test.testCountUnigrams()
     # print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
 #     test.week1Tests()
 #     print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
