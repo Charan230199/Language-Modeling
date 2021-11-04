@@ -297,7 +297,33 @@ Parameters: 2D list of strs ; 2D list of strs ; int
 Returns: dict mapping strs to (lists of values)
 '''
 def setupChartData(corpus1, corpus2, topWordCount):
-    return
+    vocabulary1, vocabulary2= buildVocabulary(corpus1), buildVocabulary(corpus2)
+    count1, count2 = countUnigrams(corpus1),countUnigrams(corpus2)
+    length1, length2 = getCorpusLength(corpus1),getCorpusLength(corpus2)
+    probability1, probability2 = buildUnigramProbs(vocabulary1,count1, length1 ),buildUnigramProbs(vocabulary2,count2, length2 ) #probs untayi shashidhar
+    top1,top2 = getTopWords(topWordCount,vocabulary1,probability1,ignore),getTopWords(topWordCount,vocabulary2,probability2,ignore)
+    list=[]
+    for i,j in top1.items():
+        list.append(i)
+    for a,z in top2.items():
+        if a not in list:
+            list.append(a)
+    prob1=[]
+    prob2=[]
+    for key in range(len(list)):
+        if list[key] in vocabulary1:
+            index = vocabulary1.index(list[key])
+            prob1.append(probability1[index])
+        else:
+            prob1.append(0)
+        if list[key] in vocabulary2:
+            index2 = vocabulary2.index(list[key])
+            prob2.append(probability2[index2])
+    Dict={}
+    Dict["topWords"] = list
+    Dict["corpus1Probs"]=prob1
+    Dict["corpus2Probs"] = prob2
+    return Dict
 
 
 '''
@@ -307,7 +333,8 @@ Parameters: 2D list of strs ; str ; 2D list of strs ; str ; int ; str
 Returns: None
 '''
 def graphTopWordsSideBySide(corpus1, name1, corpus2, name2, numWords, title):
-
+    data = setupChartData(corpus1, corpus2,numWords)
+    sideBySideBarPlots(data['topWords'], data['corpus1Probs'], data['corpus2Probs'], name1, name2, title)
     return
 
 
@@ -318,6 +345,8 @@ Parameters: 2D list of strs ; 2D list of strs ; int ; str
 Returns: None
 '''
 def graphTopWordsInScatterplot(corpus1, corpus2, numWords, title):
+    data = setupChartData(corpus1,corpus2,numWords)
+    scatterPlot(data['corpus1Probs'], data['corpus2Probs'], data['topWords'],title)
     return
 
 
