@@ -184,8 +184,18 @@ getTopWords(count, words, probs, ignoreList)
 Parameters: int ; list of strs ; list of floats ; list of strs
 Returns: dict mapping strs to floats
 '''
+import operator
 def getTopWords(count, words, probs, ignoreList):
-    return
+    Dict={}
+    Dict2={}
+    for i in range(len(words)):
+        if words[i] not in ignoreList:
+            Dict2[words[i]]=probs[i]
+    sorted_Dict = dict( sorted(Dict2.items(), key=operator.itemgetter(1),reverse=True))
+    for s,j in sorted_Dict.items():
+        if len(Dict) != count and s not in ignoreList:
+            Dict[s]=j
+    return Dict
 
 
 '''
