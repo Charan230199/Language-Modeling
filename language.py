@@ -250,9 +250,15 @@ graphTop50Words(corpus)
 Parameters: 2D list of strs
 Returns: None
 '''
+import matplotlib.pyplot as plt
 def graphTop50Words(corpus):
+    vocabulary = buildVocabulary(corpus)
+    count= countUnigrams(corpus)
+    len = getCorpusLength(corpus)
+    uniq = buildUnigramProbs(vocabulary,count,len)
+    result = getTopWords(50, vocabulary, uniq, ignore)
+    return barPlot(result,"top-50-words")
     
-    return
 
 
 '''
@@ -398,5 +404,6 @@ if __name__ == "__main__":
 
     print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
     test.runWeek3()
+    
 
     
